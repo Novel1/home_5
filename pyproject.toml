@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "home-5"
+version = "0.1.0"
+description = ""
+authors = ["Roman Desyatskii <roman.desyatskii30@mail.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+poetry = "1.6.1"
+fastapi = "^0.104.1"
+uvicorn = "^0.24.0.post1"
+tortoise-orm = "^0.20.0"
+aerich = "^0.7.2"
+asyncpg = "^0.29.0"
+
+
+
+[tool.aerich]
+tortoise_orm = "src.app.db.conf.TORTOISE_ORM"
+location = "src/migrations"
+src_folder = "./."
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
