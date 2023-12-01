@@ -17,7 +17,8 @@ async def get_articles(query: shemas.ArticleGetShema = fa.Depends()):
 
 
 @router.get('/{id}')
-async def get_articles(id: UUID):
+async def get_article(id: UUID):
+    print(repo.get(id))
     try:
         return await repo.get(id)
     except common_exc.NotFoundException as e:
@@ -37,7 +38,7 @@ async def create_article(body: shemas.ArticleShema):
 async def upadate_article(id: UUID, body: shemas.ArticleUpdateSchema):
     try:
         return await repo.update(id, **body.model_dump(exclude_none=True))
-    except common_exc.CreateException as e:
+    except common_exc.UpdateException as e:
         raise http_exc.HTTPBadRequestException(detail=str(e))
     
     except common_exc.NotFoundException as e:

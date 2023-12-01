@@ -11,10 +11,10 @@ class BaseRepo:
     async def get_list(self, **kwargs) -> list[tortoise.Model]:
         return await self.model.filter(**kwargs)
     
-    async def get(self, **kwargs) -> tortoise.Model:
+    async def get(self, id:UUID) -> tortoise.Model:
         try:
-            return await self.model.get(**kwargs)
-        except tortoise.exceptions.IntegrityError as e:
+            return await self.model.get(id=id)
+        except tortoise.exceptions.DoesNotExist as e:
             raise common_exc.CreateException(str(e))
 
     
@@ -47,3 +47,6 @@ class ArticleRepository(BaseRepo):
 
 class CommentRepository(BaseRepo):
     model = models.Comment
+
+class UserRepository(BaseRepo):
+    model = models.User

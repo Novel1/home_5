@@ -12,12 +12,17 @@ async def upgrade(db: BaseDBAsyncClient) -> str:
 CREATE TABLE IF NOT EXISTS "article" (
     "id" UUID NOT NULL  PRIMARY KEY,
     "name" TEXT NOT NULL,
-    "description" TEXT NOT NULL
+    "description" TEXT NOT NULL,
+    "category" VARCHAR(255) NOT NULL
+);
+CREATE TABLE IF NOT EXISTS "comment" (
+    "id" UUID NOT NULL  PRIMARY KEY,
+    "description" TEXT NOT NULL,
+    "article_id" UUID NOT NULL REFERENCES "article" ("id") ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS "user" (
     "id" UUID NOT NULL  PRIMARY KEY,
-    "username" VARCHAR(100) NOT NULL UNIQUE,
-    "password" VARCHAR(255) NOT NULL
+    "username" TEXT NOT NULL
 );"""
 
 
