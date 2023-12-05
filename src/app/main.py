@@ -30,9 +30,9 @@ app = setup()
 
 @app.post('/api/token')
 async def login(form_data: OAuth2PasswordRequestForm = fastapi.Depends()):
-    user = services.authenticate_user(form_data.username, form_data.password)
+    user, is_authenticated = services.authenticate_user(form_data.username, form_data.password)
     
-    if not user:
+    if is_authenticated:
         raise fastapi.HTTPException(
             status_code=fastapi.status.HTTP_401_UNAUTHORIZED,
             detail='Incorrect username or password',
